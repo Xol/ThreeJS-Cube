@@ -1,0 +1,54 @@
+<html>
+<head>
+    <title>Cube with three.js</title>
+    <style>
+        body { margin: 0; }
+        canvas { width: 100%; height: 100% }
+    </style>
+</head>
+<body>
+<script src="js/three.min.js"></script>
+<script>
+    var axisHelper = new THREE.AxisHelper( 5 );
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 85, window.innerWidth / window.innerHeight, 0.1, 1000 );
+    var renderer = new THREE.WebGLRenderer();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+    var cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+    scene.add( axisHelper );
+    camera.position.z = 5;
+
+    window.addEventListener("keypress", dealWithKeyboard, false);
+
+    function dealWithKeyboard(key){
+        if (key.keyCode == "115") {
+            cube.rotation.x += 0.1;
+        }
+        if(key.keyCode == "119"){
+            cube.rotation.x -= 0.1;
+        }
+        if(key.keyCode == "100") {
+            cube.rotation.y += 0.1;
+        }
+        if(key.keyCode == "97"){
+            cube.rotation.y -= 0.1;
+        }
+    }
+
+    function render() {
+        requestAnimationFrame( render );
+        //cube.rotation.x += 0.01;
+        //cube.rotation.y += 0.001;
+        renderer.render( scene, camera );
+    }
+
+    render();
+</script>
+</body>
+</html>
